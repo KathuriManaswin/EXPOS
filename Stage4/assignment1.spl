@@ -1,0 +1,9 @@
+alias counter R0;
+counter=0;
+alias pointer R1;
+pointer=1;
+while(pointer<=20) do
+	counter=counter+pointer*pointer;
+	pointer=pointer+1;
+endwhile;
+print counter;
