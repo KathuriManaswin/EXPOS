@@ -1,0 +1,8 @@
+alias num R0;
+num=1;
+alias cube R1;
+while(num<=5) do
+	cube=num*num*num;
+	breakpoint;
+	num=num+1;
+endwhile;
