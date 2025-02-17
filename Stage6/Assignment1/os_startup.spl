@@ -1,0 +1,30 @@
+loadi(65,7); // Load INIT program code (page 7 on disk)
+loadi(66,8); // Load INIT program code (page 8 on disk)
+
+loadi(22,35); // Load INT10 module (page 35 on disk)
+loadi(23,36); // Load INT10 module (page 36 on disk)
+
+loadi(2,15); // Load exception handler routine (page 15 on disk)
+loadi(3,16); // Load exception handler routine (page 16 on disk)
+
+PTBR = PAGE_TABLE_BASE; // Set Page Table Base Register to base address of page table
+PTLR = 3; // Set Page Table Limit Register to 3 (we need 3 pages for this process)
+
+[PTBR + 8] = 65;  // Logical page 0: INIT program code (set physical page number)
+[PTBR + 9] = "0100"; // Read-only access for page 0
+
+[PTBR + 10] = 66;  // Logical page 1: INIT program code (set physical page number)
+[PTBR + 11] = "0100"; // Read-only access for page 1
+
+[PTBR + 16] = 76;  // Logical page 2: Stack (set physical page number)
+[PTBR + 17] = "0110"; // Read and write access for page 2 (stack)
+
+[76 * 512] = 0; // Set the top of the stack to 0, as the initial IP value is 0
+SP = 2 * 512;    // Set stack pointer to top of logical page 2 (stack page), logical address 1024
+// Note: We use logical addresses here. The stack pointer points to the logical address 
+// of the stack (page 2). The system will handle address translation from logical 
+// to physical addresses using the page table, as user processes shouldn't access 
+// physical addresses directly for security reasons.
+
+ireturn; // Return control to user mode (start executing INIT program)
+
