@@ -41,6 +41,6 @@ PTLR=10; // 2 for library, 2 for heap, 2 for stack, 4 for code (2 unused for now
 [PTBR+18]=77;
 [PTBR+19]="0110";
 
-[76*512]=[65*512+1]; //the entry point value(2nd entree of the header) is the address of the first instructrion to be executed when program is run
+[76*512]=[65*512+1]; //the entry point value(2nd entree of the header) is the address of the first instruction to be executed when program is run
 SP=8*512;            //stack starts from logical page 8
 ireturn;
