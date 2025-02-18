@@ -4,7 +4,7 @@ loadi(64,14);
 loadi(65,7); //INIT Program
 loadi(66,8);
 
-loadi(22,35); //Interrupt handler
+loadi(22,35); //INT10 module
 loadi(23,36);
 
 loadi(2,15); //Exception handler
