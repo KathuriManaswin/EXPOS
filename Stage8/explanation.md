@@ -1,50 +1,85 @@
-Stage 8 - Timer Interrupt Handler Implementation
+_______________________________
+Stage 8: Timer Interrupt Handler Implementation
+_______________________________
 
-Objective:
-In this stage, we focus on implementing a simple timer interrupt handler for the XSM simulator. The interrupt will occur after every 20 instructions, and our handler will print "TIMER" before returning control to the user program.
+- In this stage, we implement a simple timer interrupt handler for the XSM simulator. The interrupt will occur every 20 instructions in user mode, and the handler will print "TIMER" before returning control to the user program.
 
-Modifications to OS Startup Code:
-1. Modify the OS startup code to load the timer interrupt routine from disk blocks 17 and 18 into memory pages 4 and 5. The instructions for this are:
-   
-   - loadi(4, 17);
-   - loadi(5, 18);
+_______________________________
+Modifications to OS Startup Code
+_______________________________
 
-This ensures the timer interrupt routine is available at the correct memory location when triggered.
+- **Load Timer Interrupt Routine into Memory:**
+  - The timer interrupt routine is stored in disk blocks 17 and 18.
+  - During OS startup, it is loaded into memory pages 4 and 5.
+  - The timer interrupt routine must be loaded into memory at the correct physical address for it to function properly.
+  
+- **Steps to Load the Interrupt Routine:**
+  - Add the following instructions to load the interrupt routine:
 
-Timer Interrupt Routine:
-The timer interrupt routine is written to print the message "TIMER" and then return to the user program. The code for the interrupt routine is:
+    ```
+    loadi(4, 17);
+    loadi(5, 18);
+    ```
 
-   - print "TIMER";
-   - ireturn;
+- **Setting Up Timer Interrupt:**
+  - The timer interrupt routine is written to print "TIMER" and return to the user program.
 
-This simple handler serves as a starting point for further timer-related tasks.
+    ```
+    print "TIMER";
+    ireturn;
+    ```
 
-Steps for Implementation:
+  - This is a basic interrupt handler that prints a message and returns to the user program.
 
-1. Write the timer interrupt routine and save it in your UNIX machine at:
-   
-   $HOME/myexpos/spl/spl_progs/sample_timer.spl
+_______________________________
+Timer Interrupt Routine
+_______________________________
 
-2. Compile the routine using the SPL compiler.
+- **Write the Timer Interrupt Routine:**
+  - Save the routine in the UNIX machine at the following location:
 
-3. Load the compiled XSM code into the XSM disk using the XFS Interface with the following commands:
+    ```
+    $HOME/myexpos/spl/spl_progs/sample_timer.spl
+    ```
 
-   cd $HOME/myexpos/xfs-interface
-   ./xfs-interface
-   # load --int=timer $HOME/spl/spl_progs/sample_timer.xsm
-   # exit
+- **Compile the Routine:**
+  - Compile the routine using the SPL compiler.
 
-4. Recompile and reload the OS Startup code to include the new timer interrupt routine.
+- **Load the Compiled XSM Code into XSM Disk:**
+  - Use the XFS Interface to load the compiled code. Run the following commands:
 
-5. Run the XSM machine with the timer enabled:
+    ```
+    cd $HOME/myexpos/xfs-interface
+    ./xfs-interface
+    # Load the interrupt routine
+    # load --int=timer $HOME/spl/spl_progs/sample_timer.xsm
+    # Exit the XFS Interface
+    # exit
+    ```
 
-   cd $HOME/myexpos/xsm
-   ./xsm --timer 2
+- **Recompile and Reload OS Startup Code:**
+  - Recompile and reload the OS Startup code to include the new timer interrupt routine.
 
-Outcome:
-Once these steps are completed, the XSM machine will run with the timer enabled. Every 20 instructions executed in user mode will trigger the interrupt, causing the "TIMER" message to be printed.
+_______________________________
+Running the XSM Machine
+_______________________________
 
-Consequences:
-This stage lays the foundation for handling hardware interrupts in the operating system, specifically for timer-based events. In future stages, more complex interrupt handling and scheduling routines can be implemented.
+- **Run XSM Machine with Timer Enabled:**
+  - Run the XSM machine with the timer enabled by executing:
 
+    ```
+    cd $HOME/myexpos/xsm
+    ./xsm --timer 2
+    ```
 
+_______________________________
+Outcome
+_______________________________
+
+- Once the steps are completed, the XSM machine will run with the timer enabled. Every 20 instructions executed in user mode will trigger the interrupt, causing the message "TIMER" to be printed.
+
+_______________________________
+Consequences
+_______________________________
+
+- This stage introduces the basics of interrupt handling in the operating system, specifically focusing on timer interrupts. This is foundational for more complex scheduling and interrupt management tasks in future stages.
