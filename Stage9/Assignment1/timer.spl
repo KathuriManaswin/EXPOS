@@ -1,0 +1,20 @@
+// Save the current user SP to the process table
+[PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE+1]*16 ) +13]=SP;
+
+// Set SP to the beginning of the kernel SP
+//11th field in the process table is user area page number
+SP=[PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE+1]*16 ) +11]*512-1;
+
+// save the user context to the kernel stack
+backup;
+
+alias counter R1;
+counter=[SYSTEM_STATUS_TABLE+1]; //PID
+print counter;
+print "TIMER";
+
+//restore the user context and set SP to user SP
+restore;
+SP=[PROCESS_TABLE + ( [SYSTEM_STATUS_TABLE+1]*16 ) +13];
+
+ireturn;
