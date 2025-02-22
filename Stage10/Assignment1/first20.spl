@@ -1,0 +1,8 @@
+alias mark R0;
+mark=1;
+
+while(mark<=20) do
+	print mark;
+	mark=mark+1;
+endwhile;
+
