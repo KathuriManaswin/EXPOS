@@ -1,4 +1,3 @@
-Here's the explanation for **Stage 10** in the same format as the previous stages:  
 
 ---
 
@@ -102,5 +101,3 @@ In this stage, we implement a system call handler for **INT 7**, which processes
 - To **ensure correctness**, each address is computed **independently** using **address translation**.
 
 ---
-
-This completes **Stage 10**, setting up system call handling with **INT 7** and preparing for **ExpL programming** in the next stage. 🚀
