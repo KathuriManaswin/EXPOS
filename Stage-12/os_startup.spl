@@ -30,8 +30,8 @@ PTBR = PAGE_TABLE_BASE; // as PID(idle) = 0
 PTLR = 10;
 
 // Library
-[PTBR + 0] = 63;
-[PTBR + 1] = "0100";
+[PTBR + 0] = 63;         // I got some error saying Illegal memory access if I remove this and put it according to the data in the roadmap
+[PTBR + 1] = "0100";     // need more clarity on why this is happening
 [PTBR + 2] = 64;
 [PTBR + 3] = "0100";
 
